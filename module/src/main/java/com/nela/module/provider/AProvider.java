@@ -15,14 +15,16 @@
 //import android.text.TextUtils;
 //import android.util.Log;
 //
+//import com.nela.common.constants.Define;
+//
 //import java.util.HashSet;
 //import java.util.Set;
 //
-//public class RmsProvider extends ContentProvider {
+//public class AProvider extends ContentProvider {
 //
-//    private final static String TAG = "RmsProvider";
-//    private static final Uri NOTIFICATION_URI = Uri.parse("content://" + RmsDefine.RMS_AUTHORITY);
-//    public static final String TABLE_RMS = "rms";
+//    private final static String TAG = "AProvider";
+//    private static final Uri NOTIFICATION_URI = Uri.parse("content://" + Define.TABLEA_AUTHORITY);
+//    public static final String TABLE_A = "table_a";
 //    private static final String TABLE_WORDS = "words";
 //    private RcsDatabaseHelper mDatabaseHelper;
 //

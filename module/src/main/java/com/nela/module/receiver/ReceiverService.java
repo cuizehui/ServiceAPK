@@ -5,7 +5,7 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.nela.common.tools.JsonParamConstants;
+import com.nela.common.constants.JsonParamConstants;
 
 /**
  * 内部处理上报广播
@@ -39,7 +39,14 @@ public class ReceiverService extends IntentService {
     }
 
     private void dealFirstBroadCast(String json) {
+        dealProviderOperate();
         sendSecondNotify(json);
+    }
+
+    //进行数据库操作
+    private void dealProviderOperate() {
+        //todo 处理provider
+
     }
 
     private void sendSecondNotify(String json) {

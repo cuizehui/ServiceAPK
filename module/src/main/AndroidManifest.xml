@@ -3,9 +3,14 @@
     package="com.nela.module">
 
     <application>
+        <receiver
+            android:name=".receiver.BusinessAReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
         <service
             android:name=".receiver.ReceiverService"
-            android:exported="false"></service>
+            android:exported="false" />
     </application>
 
 </manifest>

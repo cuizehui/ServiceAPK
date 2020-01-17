@@ -1,4 +1,4 @@
-package com.nela.common.tools;
+package com.nela.common.constants;
 
 public class JsonParamConstants {
 

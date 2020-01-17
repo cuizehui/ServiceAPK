@@ -4,15 +4,18 @@ import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 
+import com.nela.module.app.Utils;
+import com.nela.module.receiver.BusinessAReceiver;
 import com.nela.module.receiver.ReceiverService;
 
-public class JApplication extends Application {
+public class NApplication extends Application {
 
-    private final static String TAG = "JApplication";
+    private final static String TAG = "NApplication";
 
     public static Context sContext;
-    public static JApplication sApplication;
+    public static NApplication sApplication;
     private volatile boolean mInited = false;
 
     private final static BroadcastReceiver sRcsReceiver = new BroadcastReceiver() {
@@ -27,7 +30,7 @@ public class JApplication extends Application {
         sRcsReceiver.onReceive(sContext, intent);
     }
 
-    public JApplication() {
+    public NApplication() {
         super();
         sApplication = this;
     }
@@ -47,8 +50,19 @@ public class JApplication extends Application {
     public boolean init() {
         //加载so库
         //创建日志目录
+        registerReceiver();
         return true;
     }
 
+    private void registerReceiver() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Utils.ACTION_NET_STATE_CHANGED);
+        filter.addAction(Utils.ACTION_SIM_STATE_CHANGED);
+        filter.addAction(Utils.ACTION_SCHEDULE_LOGIN);
+        filter.addAction(Utils.ACTION_DATA_CARD_CHAGE);
+        filter.addAction(Utils.ACTION_SHUTDOWN);
+        sContext.registerReceiver(new BusinessAReceiver(), filter);
+
+    }
 
 }
