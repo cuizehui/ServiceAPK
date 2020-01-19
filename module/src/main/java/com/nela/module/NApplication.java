@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.util.Log;
 
 import com.nela.module.app.Utils;
 import com.nela.module.receiver.BusinessAReceiver;
@@ -50,6 +51,7 @@ public class NApplication extends Application {
     public boolean init() {
         //加载so库
         //创建日志目录
+        Log.d(TAG, "init");
         registerReceiver();
         return true;
     }
@@ -62,7 +64,5 @@ public class NApplication extends Application {
         filter.addAction(Utils.ACTION_DATA_CARD_CHAGE);
         filter.addAction(Utils.ACTION_SHUTDOWN);
         sContext.registerReceiver(new BusinessAReceiver(), filter);
-
     }
-
 }

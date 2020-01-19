@@ -21,7 +21,6 @@ public class BusinessAReceiver extends BroadcastReceiver {
         } else if (TextUtils.equals(action, Utils.ACTION_NET_STATE_CHANGED)) {
 
         } else if (TextUtils.equals(action, Utils.ACTION_SHUTDOWN)) {
-
             //上报事件
            // NApplication.dealFirstNotify();
         }
