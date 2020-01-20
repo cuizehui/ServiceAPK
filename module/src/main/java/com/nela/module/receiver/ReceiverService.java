@@ -4,13 +4,9 @@ import android.app.IntentService;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.nela.common.constants.JsonParamConstants;
-
-/**
- * 内部处理上报广播
- * 或者交给APk层处理广播
- */
 
 public class ReceiverService extends IntentService {
 
@@ -29,16 +25,17 @@ public class ReceiverService extends IntentService {
 
     private void dealRcsBroadcast(Intent intent) {
         String action = intent.getAction();
-        String json = intent.getStringExtra(JsonParamConstants.RCS_JSON_KEY);
+        String json = intent.getStringExtra(JsonParamConstants.JSON_KEY);
         if (json == null) {
             return;
         }
-        if (TextUtils.equals(action, JsonParamConstants.RCS_ACTION_IM)) {
+        if (TextUtils.equals(action, JsonParamConstants.ACTION_A)) {
             dealFirstBroadCast(json);
         }
     }
 
     private void dealFirstBroadCast(String json) {
+        Log.d(TAG, "dealFirstBroadCast " + json);
         dealProviderOperate();
         sendSecondNotify(json);
     }
@@ -46,17 +43,17 @@ public class ReceiverService extends IntentService {
     //进行数据库操作
     private void dealProviderOperate() {
         //todo 处理provider
-
     }
 
     private void sendSecondNotify(String json) {
+        Log.d(TAG, "sendSecondNotify " + json);
         {
-            Intent intent = new Intent(JsonParamConstants.RCS_ACTION_CLI_NOTIFY);
-            intent.putExtra(JsonParamConstants.RCS_JSON_KEY, json);
-            //apk层Receiver
-            intent.setComponent(new ComponentName("com.android.messaging", "com.juphoon.helper.mms.RcsWakeupReceiver"));
-            sendBroadcast(intent, JsonParamConstants.RCS_NOTIFY_PERMISSION);
+            Intent intent = new Intent(JsonParamConstants.ACTION_APK_NOTIFY);
+            intent.putExtra(JsonParamConstants.JSON_KEY, json);
+            //发送广播到apk层Receiver
+            intent.setComponent(new ComponentName("com.nela.businessapk", "com.juphoon.helper.mms.RcsWakeupReceiver"));
+            //sendBroadcast(intent, JsonParamConstants.RCS_NOTIFY_PERMISSION);
+            sendBroadcast(intent);
         }
-        //  notifyCallback(JsonParamConstants.RCS_ACTION_CLI_NOTIFY, json);
     }
 }

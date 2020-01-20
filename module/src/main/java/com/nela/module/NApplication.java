@@ -60,7 +60,6 @@ public class NApplication extends Application {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Utils.ACTION_NET_STATE_CHANGED);
         filter.addAction(Utils.ACTION_SIM_STATE_CHANGED);
-        filter.addAction(Utils.ACTION_SCHEDULE_LOGIN);
         filter.addAction(Utils.ACTION_DATA_CARD_CHAGE);
         filter.addAction(Utils.ACTION_SHUTDOWN);
         sContext.registerReceiver(new BusinessAReceiver(), filter);

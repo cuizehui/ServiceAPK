@@ -9,8 +9,6 @@ public class Utils {
     public static final String ACTION_SMS_RECEIVED = "android.provider.Telephony.SMS_RECEIVED";
     // 系统接收数据短信
     public static final String ACTION_DATA_SMS_RECEIVED = "android.intent.action.DATA_SMS_RECEIVED";
-    // 自定义登陆
-    public final static String ACTION_SCHEDULE_LOGIN = "com.juphoon.action.rcs_schedule_login";
     // 关机广播
     public final static String ACTION_SHUTDOWN = "android.intent.action.ACTION_SHUTDOWN";
     // 数据卡切换
