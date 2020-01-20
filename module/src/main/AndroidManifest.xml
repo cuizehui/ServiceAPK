@@ -22,7 +22,19 @@
 
         <service
             android:name=".receiver.ReceiverService"
-            android:exported="false" />
+            android:exported="true"></service>
+
+        <service
+            android:name=".service.AliveService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.nela.module.aliveservice.action" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+
     </application>
 
 </manifest>

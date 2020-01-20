@@ -8,7 +8,7 @@ import android.util.Log;
 
 
 public class AliveService extends Service {
-
+    private static final String TAG = AliveService.class.getSimpleName();
     private final IAliveService.Stub mBinder = new IAliveService.Stub() {
 
         @Override
@@ -17,13 +17,14 @@ public class AliveService extends Service {
 
         @Override
         public void setMessagingUse(boolean b) throws RemoteException {
-            Log.d("nela", "setMessagingUse" + b);
+            Log.d(TAG, "setMessagingUse" + b);
 
         }
     };
 
     @Override
     public IBinder onBind(Intent intent) {
+        Log.d(TAG, "onBind");
         return mBinder;
     }
 

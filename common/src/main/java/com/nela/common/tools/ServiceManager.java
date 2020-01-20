@@ -20,24 +20,25 @@ public class ServiceManager {
     private final static String TAG = "ServiceManager";
 
     public final static String ALIVE = "alive";
-
-    private static String rcsPackageName = "com.nela.module.service";
+    //应用包名
+    private static String packageName = "com.nela.apkservice";
     private final static String aliveClassName = "com.nela.module.service.AliveService";
 
     private static Object sInterfaceLock = new Object();
 
     private static IAliveService sIAliveService;
 
-
     private static Context sContext;
 
     public static class IServiceManagerCallback {
 
         public void onConnectedChange(boolean connected, String name) {
+
         }
 
         //others
         public void onOthersChange() {
+
         }
     }
 
@@ -95,10 +96,9 @@ public class ServiceManager {
     public static void connectService() {
         Log.d(TAG, "connectService");
         synchronized (sInterfaceLock) {
-
             if (sIAliveService == null) {
-                Intent intent = new Intent(ServiceConstants.ACTION_JUPHOON_SERVICE_ALIVE);
-                ComponentName component = new ComponentName(rcsPackageName, aliveClassName);
+                Intent intent = new Intent(ServiceConstants.ACTION_NELA_SERVICE_ALIVE);
+                ComponentName component = new ComponentName(packageName, aliveClassName);
                 intent.setComponent(component);
                 sContext.bindService(intent, sConnection, Context.BIND_AUTO_CREATE);
             }
@@ -111,48 +111,6 @@ public class ServiceManager {
             String name = "";
             String c = className.getClassName();
             synchronized (sInterfaceLock) {
-                //service 处理逻辑较多采用广播上报方式
-//                if (c.equals(className)) {
-//                    name = RCS;
-//                    sIRcsService = IRcsService.Stub.asInterface(service);
-//                  //  notifyLoginStateChange();
-//                    try {
-//                        sIRcsService.registerCallback(new IRcsCallback.Stub() {
-//
-//                            @Override
-//                            public void onJsonCallback(final String action, final String json) throws RemoteException {
-//                                new Handler(sContext.getMainLooper()).post(new Runnable() {
-//
-//                                    @Override
-//                                    public void run() {
-//                                        if (TextUtils.equals(RcsJsonParamConstants.RCS_ACTION_CLI_NOTIFY, action)) {
-//                                            try {
-//                                                JSONObject jsonObj = new JSONObject(json);
-//                                                String jsonAction = jsonObj.optString(RcsJsonParamConstants.RCS_JSON_ACTION);
-//                                                if (jsonAction.equals(RcsJsonParamConstants.RCS_JSON_ACTION_CLI_SERV_LOGIN_OK)) {
-//                                                    notifyLoginStateChange();
-//                                                } else if (jsonAction.equals(RcsJsonParamConstants.RCS_JSON_ACTION_CLI_SERV_LOGOUT)
-//                                                        || jsonAction.equals(RcsJsonParamConstants.RCS_JSON_ACTION_CLI_SERV_LOGIN_FAILED)) {
-//                                                    notifyLoginStateChange();
-//                                                } else if (jsonAction.equals(RcsJsonParamConstants.RCS_JSON_ACTION_CLI_CMCSS_TOKEN)) {
-//                                                    notifyCmccTokenGet(jsonObj.optString(RcsJsonParamConstants.RCS_JSON_COOKIE),
-//                                                            jsonObj.optBoolean(RcsJsonParamConstants.RCS_JSON_RESULT),
-//                                                            jsonObj.optString(RcsJsonParamConstants.RCS_JSON_TOKEN));
-//                                                } else if (jsonAction.equals(RcsJsonParamConstants.RCS_JSON_ACTION_CLI_USE_RCS)) {
-//                                                    notifyUseRcsChange();
-//                                                }
-//                                            } catch (JSONException e) {
-//                                                e.printStackTrace();
-//                                            }
-//                                        }
-//                                    }
-//                                });
-//                            }
-//                        });
-//                    } catch (RemoteException e) {
-//                        e.printStackTrace();
-//                    }
-//                }  else
                 if (c.equals(aliveClassName)) {
                     sIAliveService = IAliveService.Stub.asInterface(service);
                 }
@@ -221,5 +179,4 @@ public class ServiceManager {
         }
         return false;
     }
-
 }
