@@ -1,4 +1,4 @@
-package com.nela.rcsProgram;
+package com.nela.serviceProgram;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

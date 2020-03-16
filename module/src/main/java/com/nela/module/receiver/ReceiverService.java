@@ -23,11 +23,11 @@ public class ReceiverService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
-            dealRcsBroadcast(intent);
+            dealBroadcast(intent);
         }
     }
 
-    private void dealRcsBroadcast(Intent intent) {
+    private void dealBroadcast(Intent intent) {
         String action = intent.getAction();
         String json = intent.getStringExtra(JsonParamConstants.JSON_KEY);
         if (json == null) {
@@ -59,8 +59,7 @@ public class ReceiverService extends IntentService {
             Intent intent = new Intent(JsonParamConstants.ACTION_APK_NOTIFY);
             intent.putExtra(JsonParamConstants.JSON_KEY, json);
             //发送广播到apk层Receiver
-            intent.setComponent(new ComponentName("com.nela.businessapk", "com.juphoon.helper.mms.RcsWakeupReceiver"));
-            //sendBroadcast(intent, JsonParamConstants.RCS_NOTIFY_PERMISSION);
+            intent.setComponent(new ComponentName("com.nela.businessapk", "com.nela.businessapk.WakeupReceiver"));
             sendBroadcast(intent);
         }
     }

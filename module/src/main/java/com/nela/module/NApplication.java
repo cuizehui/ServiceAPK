@@ -19,7 +19,7 @@ public class NApplication extends Application {
     public static NApplication sApplication;
     private volatile boolean mInited = false;
 
-    private final static BroadcastReceiver sRcsReceiver = new BroadcastReceiver() {
+    private final static BroadcastReceiver sReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             intent.setClass(context, ReceiverService.class);
@@ -28,7 +28,7 @@ public class NApplication extends Application {
     };
 
     public static void dealFirstNotify(Intent intent) {
-        sRcsReceiver.onReceive(sContext, intent);
+        sReceiver.onReceive(sContext, intent);
     }
 
     public NApplication() {

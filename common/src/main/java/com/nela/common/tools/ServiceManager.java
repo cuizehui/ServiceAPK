@@ -89,9 +89,6 @@ public class ServiceManager {
         }
     }
 
-//    private static boolean isNeedToReconnect() {
-////        return getIRcsService() == null || getIRcsImService() == null;
-//    }
 
     public static void connectService() {
         Log.d(TAG, "connectService");
@@ -143,21 +140,6 @@ public class ServiceManager {
             connectService();
         }
     }
-
-//    /**
-//     * 针对 aar 的形式
-//     *
-//     * @param context
-//     * @param servicePackageName
-//     */
-//    public static void init(Context context, String servicePackageName) {
-//        Log.d(TAG, "init");
-//        if (sContext == null) {
-//            sContext = context.getApplicationContext();
-//            rcsPackageName = servicePackageName;
-//            connectService();
-//        }
-//    }
 
     public static void uninit() {
         if (sContext != null) {

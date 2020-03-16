@@ -1,1 +1,1 @@
-include ':app', ':module', ':common'
+include ':app', ':module', ':common', ':jnilibrary'
