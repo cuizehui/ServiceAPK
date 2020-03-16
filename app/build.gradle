@@ -8,12 +8,26 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    flavorDimensions "apptype", "channel"
+
+    productFlavors {
+        cooperatorA {
+            dimension "apptype"
+        }
+        cooperatorB {
+            dimension "apptype"
+        }
+        //渠道公版
+        Public {
+            dimension "channel"
         }
     }
 }

@@ -9,15 +9,22 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
-    productFlavors{
-        develper {
-            flavorDimensions "versionCode"
+    flavorDimensions "apptype", "channel"
+
+    productFlavors {
+        cooperatorA {
+            dimension "apptype"
             manifestPlaceholders = [TABLE_A_AUTHORITIES: "table_a_authority", TABLE_A_EXPORT: "true"]
+        }
+        cooperatorB {
+            dimension "apptype"
+            manifestPlaceholders = [TABLE_A_AUTHORITIES: "table_a_authority", TABLE_A_EXPORT: "true"]
+        }
+        //渠道公版
+        Public {
+            dimension "channel"
         }
     }
 
