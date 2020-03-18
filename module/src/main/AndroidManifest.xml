@@ -6,13 +6,19 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application>
+        <service
+            android:name=".service.NelaService"
+            android:enabled="false"
+            android:exported="false"></service>
+
         <activity
             android:name=".StartActivity"
             android:label="@string/title_activity_start"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -20,28 +26,29 @@
             android:name=".receiver.BusinessAReceiver"
             android:enabled="true"
             android:exported="true" />
-
+        <service
+            android:name=".service.SchedulerService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
         <service
             android:name=".receiver.ReceiverService"
-            android:exported="true"></service>
-
+            android:exported="true" />
         <service
             android:name=".service.AliveService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.nela.module.aliveservice.action" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
 
         <provider
-            android:name="com.nela.module.provider.AProvider"
+            android:name=".provider.AProvider"
             android:authorities="${TABLE_A_AUTHORITIES}"
             android:exported="${TABLE_A_EXPORT}"
             android:readPermission="android.permission.READ_SMS"
-            android:writePermission="android.permission.WRITE_SMS"/>
-
+            android:writePermission="android.permission.WRITE_SMS" />
     </application>
 
 </manifest>

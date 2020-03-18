@@ -34,13 +34,6 @@ android {
             path 'src/main/jni/Android.mk'
         }
     }
-
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['/src/main/libs']
-        }
-    }
-
 }
 
 dependencies {
@@ -57,4 +50,21 @@ task copylib(type: Copy) {
     from('src/main/libs')
     into('../module/libs/')
     //去掉不需要打包的目录和文件
+}
+
+task buildSoLibJar(type: Jar ,dependsOn: ['assemble']){
+    delete'build/libs/'//删除指定目录下的jar文件
+    // 指定生成的jar名
+    baseName 'commontools'
+    //从哪里打包class文件
+    from('build/intermediates/classes/release/')
+    //去掉不需要打包的目录和文件
+}
+
+
+task copySOLibJar(type: Copy, dependsOn: ['assemble']) {
+
+    from('build/intermediates/packaged-classes/debug/classes.jar')
+    into('../module/libs/')
+    rename('classes.jar', 'nelaSO.jar')
 }

@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.nela.common.constants.ServiceConstants;
 import com.nela.module.service.IAliveService;
+import com.nela.module.service.INelaService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +21,15 @@ public class ServiceManager {
     private final static String TAG = "ServiceManager";
 
     public final static String ALIVE = "alive";
+    public final static String Nela = "nela";
     //应用包名
     private static String packageName = "com.nela.apkservice";
     private final static String aliveClassName = "com.nela.module.service.AliveService";
-
+    private final static String nelaClassName = "com.nela.module.service.NelaService";
     private static Object sInterfaceLock = new Object();
 
     private static IAliveService sIAliveService;
-
+    private static INelaService sINelaService;
     private static Context sContext;
 
     public static class IServiceManagerCallback {
@@ -53,6 +55,13 @@ public class ServiceManager {
             return sIAliveService;
         }
     }
+
+    public static INelaService getNelaService() {
+        synchronized (sInterfaceLock) {
+            return sINelaService;
+        }
+    }
+
 
     public static void addCallBack(final IServiceManagerCallback callback) {
         new Handler(sContext.getMainLooper()).post(new Runnable() {
@@ -99,6 +108,12 @@ public class ServiceManager {
                 intent.setComponent(component);
                 sContext.bindService(intent, sConnection, Context.BIND_AUTO_CREATE);
             }
+            if (sINelaService == null) {
+                Intent intent = new Intent(ServiceConstants.ACTION_NELA_SERVICE_NELA);
+                ComponentName component = new ComponentName(packageName, nelaClassName);
+                intent.setComponent(component);
+                sContext.bindService(intent, sConnection, Context.BIND_AUTO_CREATE);
+            }
         }
     }
 
@@ -110,6 +125,8 @@ public class ServiceManager {
             synchronized (sInterfaceLock) {
                 if (c.equals(aliveClassName)) {
                     sIAliveService = IAliveService.Stub.asInterface(service);
+                } else if (c.equals(nelaClassName)) {
+                    sINelaService = INelaService.Stub.asInterface(service);
                 }
             }
             Log.d(TAG, c + " onServiceConnected");
@@ -124,6 +141,9 @@ public class ServiceManager {
                 if (c.equals(aliveClassName)) {
                     name = ALIVE;
                     sIAliveService = null;
+                } else if (c.equals(nelaClassName)) {
+                    name = Nela;
+                    sINelaService = null;
                 }
 
             }

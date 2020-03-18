@@ -66,7 +66,7 @@ public class LoginManager {
             //      MtcLog.log(TAG, "retry over times");
             return 24 * 3600 * 1000 - now % (24 * 3600 * 1000);
         }
-        return 0;
+        return 500;
     }
 
     private static void cancelSchedule() {

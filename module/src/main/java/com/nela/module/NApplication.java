@@ -10,6 +10,7 @@ import android.util.Log;
 import com.nela.module.app.Utils;
 import com.nela.module.receiver.BusinessAReceiver;
 import com.nela.module.receiver.ReceiverService;
+import com.nela.module.tool.LoginManager;
 
 public class NApplication extends Application {
 
@@ -50,9 +51,11 @@ public class NApplication extends Application {
 
     public boolean init() {
         //加载so库
+        System.loadLibrary("nela_jni");
         //创建日志目录
         Log.d(TAG, "init");
         registerReceiver();
+        LoginManager.scheduleLogin();
         return true;
     }
 
